@@ -17,7 +17,9 @@
 package org.springframework.cloud.deployer.spi.kubernetes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.fabric8.kubernetes.api.model.Volume;
 import io.fabric8.kubernetes.api.model.VolumeMount;
@@ -67,6 +69,12 @@ public class KubernetesDeployerProperties {
 
 	private static String KUBERNETES_NAMESPACE =
 			System.getenv("KUBERNETES_NAMESPACE") != null ? System.getenv("KUBERNETES_NAMESPACE") : "default";
+
+
+	/**
+	 * A map of labels to match nodes which should be considered during current deployment.
+     */
+	private final Map<String, String> nodeSelector = new HashMap<>();
 
 	/**
 	 * Namespace to use.
@@ -205,6 +213,10 @@ public class KubernetesDeployerProperties {
 	 * Deployment properties will override deployer properties.
 	 */
 	private List<Volume> volumes = new ArrayList<>();
+
+	public Map<String, String> getNodeSelector() {
+		return nodeSelector;
+	}
 
 	public String getNamespace() {
 		return namespace;

@@ -126,6 +126,7 @@ public class AbstractKubernetesDeployer {
 				.collect(Collectors.toList()));
 
 		podSpec.addToContainers(container);
+		podSpec.withNodeSelector(properties.getNodeSelector());
 
 		if (neverRestart){
 			podSpec.withRestartPolicy("Never");
